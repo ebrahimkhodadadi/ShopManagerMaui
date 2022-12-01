@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.SqlLite", "Data.SqlLite\Data.SqlLite.csproj", "{31A909EB-561E-432A-98F1-4C7D599881D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{FB5CA028-0A70-4629-B9B5-C6AE715D4E5E}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiShopApp", "MauiShopApp\MauiShopApp.csproj", "{D8CFF45B-C3F3-4B45-8246-F03CAD265AC4}"
 EndProject
 Global

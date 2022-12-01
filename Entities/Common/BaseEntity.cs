@@ -1,5 +1,9 @@
 ﻿namespace Entities.Common;
-public abstract class BaseEntity
+
+public interface IEntity
+{
+}
+public abstract class BaseEntity : IEntity
 {
     public int Id { get; set; }
 }
