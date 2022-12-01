@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "ShopManagerMaui\Api.csproj", "{8E8D5D09-79E0-4021-86FD-7D7DA1EE0FE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiApplication", "MauiApplication\MauiApplication.csproj", "{D001B9D0-8CC1-4D23-A3FE-B22BD991421F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiApp", "MauiApplication\MauiApp.csproj", "{D001B9D0-8CC1-4D23-A3FE-B22BD991421F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{9C780891-0E06-4A25-9879-58740BD031A6}"
 EndProject
