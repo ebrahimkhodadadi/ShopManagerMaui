@@ -1,6 +1,4 @@
-﻿using Common;
-
-namespace Common.DataInitializer
+﻿namespace Data.DataInitializer
 {
     public interface IDataInitializer
     {

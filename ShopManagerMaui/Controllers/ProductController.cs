@@ -1,89 +1,40 @@
 ﻿
+using Api.Base;
+using System.Threading;
+
 namespace Api.Controllers;
 
 public class ProductController : BaseController
 {
-    protected readonly IRepository<Products> Repository;
+    protected readonly IRepository<Products> RepositoryProduct;
+    protected readonly IRepository<ProductDetails> RepositoryProductDetails;
 
-    public ProductController(IRepository<Products> repository)
+    public ProductController(IRepository<Products> repository, IRepository<ProductDetails> repositoryProductDetails)
     {
-        Repository = repository;
+        RepositoryProduct = repository;
+        RepositoryProductDetails = repositoryProductDetails;
     }
-    //// GET: ProductController
-    [HttpGet]
+
+    [HttpGet("GetAll")]
     public async Task<ActionResult> GetAll(CancellationToken cancellationToken)
     {
-        var list = await Repository.TableNoTracking.ToListAsync(cancellationToken);
+        var list = await RepositoryProduct.TableNoTracking.ToListAsync(cancellationToken);
 
         return Ok(list);
     }
 
-    //// GET: ProductController/Details/5
-    //public ActionResult Details(int id)
-    //{
-    //    return View();
-    //}
+    [HttpGet("GetByID")]
+    public async Task<ActionResult> GetByID(int id, CancellationToken cancellationToken)
+    {
+        var products = await RepositoryProduct.TableNoTracking
+                        .SingleOrDefaultAsync(p => p.Id.Equals(id), cancellationToken);
+        
+        if (products == null)
+            return NotFound();
 
-    //// GET: ProductController/Create
-    //public ActionResult Create()
-    //{
-    //    return View();
-    //}
+        var productDetail = await RepositoryProductDetails.TableNoTracking
+            .Where(p => p.ProductId == products.Id).ToListAsync();
 
-    //// POST: ProductController/Create
-    //[HttpPost]
-    //[ValidateAntiForgeryToken]
-    //public ActionResult Create(IFormCollection collection)
-    //{
-    //    try
-    //    {
-    //        return RedirectToAction(nameof(Index));
-    //    }
-    //    catch
-    //    {
-    //        return View();
-    //    }
-    //}
-
-    //// GET: ProductController/Edit/5
-    //public ActionResult Edit(int id)
-    //{
-    //    return View();
-    //}
-
-    //// POST: ProductController/Edit/5
-    //[HttpPost]
-    //[ValidateAntiForgeryToken]
-    //public ActionResult Edit(int id, IFormCollection collection)
-    //{
-    //    try
-    //    {
-    //        return RedirectToAction(nameof(Index));
-    //    }
-    //    catch
-    //    {
-    //        return View();
-    //    }
-    //}
-
-    //// GET: ProductController/Delete/5
-    //public ActionResult Delete(int id)
-    //{
-    //    return View();
-    //}
-
-    //// POST: ProductController/Delete/5
-    //[HttpPost]
-    //[ValidateAntiForgeryToken]
-    //public ActionResult Delete(int id, IFormCollection collection)
-    //{
-    //    try
-    //    {
-    //        return RedirectToAction(nameof(Index));
-    //    }
-    //    catch
-    //    {
-    //        return View();
-    //    }
-    //}
+        return Ok(new { Product = products, ProductDetail = productDetail });
+    }
 }

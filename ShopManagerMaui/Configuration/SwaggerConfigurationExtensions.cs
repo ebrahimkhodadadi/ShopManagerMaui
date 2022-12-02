@@ -12,12 +12,16 @@ namespace Api.Configuration
             Assert.NotNull(services, nameof(services));
 
             var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-            
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ShopManagerMaui", Version = "v1" });
                 // add xml comments
                 c.IncludeXmlComments(xmlFilename);
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+                c.IgnoreObsoleteActions();
+                c.IgnoreObsoleteProperties();
+                c.CustomSchemaIds(type => type.FullName);
             });
 
         }
