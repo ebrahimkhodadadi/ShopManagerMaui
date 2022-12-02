@@ -17,6 +17,7 @@ public interface IRepository<TEntity> where TEntity : class, IEntity
     IQueryable<TEntity> Table { get; }
     IQueryable<TEntity> TableNoTracking { get; }
 
+    void Add(TEntity entity, bool saveNow = true);
     Task AddAsync(TEntity entity, CancellationToken cancellationToken, bool saveNow = true);
     Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken, bool saveNow = true);
     Task DeleteAsync(TEntity entity, CancellationToken cancellationToken, bool saveNow = true);

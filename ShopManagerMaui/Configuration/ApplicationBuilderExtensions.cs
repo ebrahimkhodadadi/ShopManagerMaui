@@ -1,6 +1,6 @@
-﻿using Common.DataInitializer;
-using Common.Utilities;
+﻿using Common.Utilities;
 using Data;
+using Data.DataInitializer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;

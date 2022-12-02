@@ -26,6 +26,15 @@ public class Repository<TEntity> : IRepository<TEntity>
         return Entities.FindAsync(ids, cancellationToken);
     }
 
+    public virtual void Add(TEntity entity, bool saveNow = true)
+    {
+        Assert.NotNull(entity, nameof(entity));
+        Entities.Add(entity);
+        if (saveNow)
+            DbContext.SaveChanges();
+        
+    }
+    
     public virtual async Task AddAsync(TEntity entity, CancellationToken cancellationToken, bool saveNow = true)
     {
         Assert.NotNull(entity, nameof(entity));

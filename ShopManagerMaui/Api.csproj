@@ -40,7 +40,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="WebFramework.Api;" />
     <Using Include="Entities.Common;" />
     <Using Include="Data.Contracts;" />
     <Using Include="Entities;" />

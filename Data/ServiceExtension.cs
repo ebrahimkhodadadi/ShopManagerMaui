@@ -1,5 +1,6 @@
 ﻿
 using Data.Contracts;
+using Data.DataInitializer;
 using Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -18,5 +19,11 @@ public static class ServiceExtension
         });
 
         services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+        
+        services.AddScoped<IDataInitializer, UserDataInitializer>();
+        services.AddScoped<IDataInitializer, ProductDataInitializer>();
+        services.AddScoped<IDataInitializer, ProductDetailDataInitializer>();
+        services.AddScoped<IDataInitializer, StoresDataInitializer>();
+        services.AddScoped<IDataInitializer, StoredProductsDataInitializer>();
     }
 }
