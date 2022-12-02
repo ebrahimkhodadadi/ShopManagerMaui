@@ -1,4 +1,6 @@
 ﻿
+using System.Threading;
+
 namespace Api.Controllers;
 
 public class ProductController : BaseController
@@ -9,8 +11,8 @@ public class ProductController : BaseController
     {
         Repository = repository;
     }
-    //// GET: ProductController
-    [HttpGet]
+
+    [HttpGet("GetAll")]
     public async Task<ActionResult> GetAll(CancellationToken cancellationToken)
     {
         var list = await Repository.TableNoTracking.ToListAsync(cancellationToken);
@@ -18,72 +20,16 @@ public class ProductController : BaseController
         return Ok(list);
     }
 
-    //// GET: ProductController/Details/5
-    //public ActionResult Details(int id)
-    //{
-    //    return View();
-    //}
+    [HttpGet("GetByID")]
+    public async Task<ActionResult> GetByID(int id, CancellationToken cancellationToken)
+    {
+        var result = await Repository.TableNoTracking
+                        .Include(x => x.ProductDetails)
+                        .SingleOrDefaultAsync(p => p.Id.Equals(id), cancellationToken);
 
-    //// GET: ProductController/Create
-    //public ActionResult Create()
-    //{
-    //    return View();
-    //}
+        if (result == null)
+            return NotFound();
 
-    //// POST: ProductController/Create
-    //[HttpPost]
-    //[ValidateAntiForgeryToken]
-    //public ActionResult Create(IFormCollection collection)
-    //{
-    //    try
-    //    {
-    //        return RedirectToAction(nameof(Index));
-    //    }
-    //    catch
-    //    {
-    //        return View();
-    //    }
-    //}
-
-    //// GET: ProductController/Edit/5
-    //public ActionResult Edit(int id)
-    //{
-    //    return View();
-    //}
-
-    //// POST: ProductController/Edit/5
-    //[HttpPost]
-    //[ValidateAntiForgeryToken]
-    //public ActionResult Edit(int id, IFormCollection collection)
-    //{
-    //    try
-    //    {
-    //        return RedirectToAction(nameof(Index));
-    //    }
-    //    catch
-    //    {
-    //        return View();
-    //    }
-    //}
-
-    //// GET: ProductController/Delete/5
-    //public ActionResult Delete(int id)
-    //{
-    //    return View();
-    //}
-
-    //// POST: ProductController/Delete/5
-    //[HttpPost]
-    //[ValidateAntiForgeryToken]
-    //public ActionResult Delete(int id, IFormCollection collection)
-    //{
-    //    try
-    //    {
-    //        return RedirectToAction(nameof(Index));
-    //    }
-    //    catch
-    //    {
-    //        return View();
-    //    }
-    //}
+        return Ok(result);
+    }
 }

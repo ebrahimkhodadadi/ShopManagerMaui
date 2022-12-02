@@ -21,7 +21,6 @@ public class Repository<TEntity> : IRepository<TEntity>
         Entities = DbContext.Set<TEntity>(); // City => Cities
     }
 
-    #region Async Method
     public virtual ValueTask<TEntity> GetByIdAsync(CancellationToken cancellationToken, params object[] ids)
     {
         return Entities.FindAsync(ids, cancellationToken);
@@ -74,60 +73,4 @@ public class Repository<TEntity> : IRepository<TEntity>
         if (saveNow)
             await DbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
     }
-    #endregion
-
-    #region Sync Methods
-    public virtual TEntity GetById(params object[] ids)
-    {
-        return Entities.Find(ids);
-    }
-
-    public virtual void Add(TEntity entity, bool saveNow = true)
-    {
-        Assert.NotNull(entity, nameof(entity));
-        Entities.Add(entity);
-        if (saveNow)
-            DbContext.SaveChanges();
-    }
-
-    public virtual void AddRange(IEnumerable<TEntity> entities, bool saveNow = true)
-    {
-        Assert.NotNull(entities, nameof(entities));
-        Entities.AddRange(entities);
-        if (saveNow)
-            DbContext.SaveChanges();
-    }
-
-    public virtual void Update(TEntity entity, bool saveNow = true)
-    {
-        Assert.NotNull(entity, nameof(entity));
-        Entities.Update(entity);
-        if (saveNow)
-            DbContext.SaveChanges();
-    }
-
-    public virtual void UpdateRange(IEnumerable<TEntity> entities, bool saveNow = true)
-    {
-        Assert.NotNull(entities, nameof(entities));
-        Entities.UpdateRange(entities);
-        if (saveNow)
-            DbContext.SaveChanges();
-    }
-
-    public virtual void Delete(TEntity entity, bool saveNow = true)
-    {
-        Assert.NotNull(entity, nameof(entity));
-        Entities.Remove(entity);
-        if (saveNow)
-            DbContext.SaveChanges();
-    }
-
-    public virtual void DeleteRange(IEnumerable<TEntity> entities, bool saveNow = true)
-    {
-        Assert.NotNull(entities, nameof(entities));
-        Entities.RemoveRange(entities);
-        if (saveNow)
-            DbContext.SaveChanges();
-    }
-    #endregion
 }
