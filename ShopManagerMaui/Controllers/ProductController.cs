@@ -6,17 +6,19 @@ namespace Api.Controllers;
 
 public class ProductController : BaseController
 {
-    protected readonly IRepository<Products> Repository;
+    protected readonly IRepository<Products> RepositoryProduct;
+    protected readonly IRepository<ProductDetails> RepositoryProductDetails;
 
-    public ProductController(IRepository<Products> repository)
+    public ProductController(IRepository<Products> repository, IRepository<ProductDetails> repositoryProductDetails)
     {
-        Repository = repository;
+        RepositoryProduct = repository;
+        RepositoryProductDetails = repositoryProductDetails;
     }
 
     [HttpGet("GetAll")]
     public async Task<ActionResult> GetAll(CancellationToken cancellationToken)
     {
-        var list = await Repository.TableNoTracking.ToListAsync(cancellationToken);
+        var list = await RepositoryProduct.TableNoTracking.ToListAsync(cancellationToken);
 
         return Ok(list);
     }
@@ -24,13 +26,15 @@ public class ProductController : BaseController
     [HttpGet("GetByID")]
     public async Task<ActionResult> GetByID(int id, CancellationToken cancellationToken)
     {
-        var result = await Repository.TableNoTracking
-                        .Include(x => x.ProductDetails)
+        var products = await RepositoryProduct.TableNoTracking
                         .SingleOrDefaultAsync(p => p.Id.Equals(id), cancellationToken);
-
-        if (result == null)
+        
+        if (products == null)
             return NotFound();
 
-        return Ok(result);
+        var productDetail = await RepositoryProductDetails.TableNoTracking
+            .Where(p => p.ProductId == products.Id).ToListAsync();
+
+        return Ok(new { Product = products, ProductDetail = productDetail });
     }
 }
