@@ -93,6 +93,7 @@
     <Using Include="System.Text.Json" />
     <Using Include="Common.API" />
     <Using Include="Entities" />
+    <Using Include="System.Collections.ObjectModel" />
   </ItemGroup>
 
 </Project>

@@ -45,6 +45,7 @@
     <Using Include="Entities;" />
     <Using Include="Microsoft.AspNetCore.Mvc;" />
     <Using Include="Microsoft.EntityFrameworkCore;" />
+    <Using Include="Api.Base;" />
   </ItemGroup>
 
 </Project>

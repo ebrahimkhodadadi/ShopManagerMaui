@@ -1,26 +1,26 @@
 ﻿
-using Api.Base;
-using System.Threading;
-
 namespace Api.Controllers;
 
 public class ProductController : BaseController
 {
+    protected readonly IRepository<StoredProducts> RepositoryStoredProduct;
     protected readonly IRepository<Products> RepositoryProduct;
     protected readonly IRepository<ProductDetails> RepositoryProductDetails;
 
-    public ProductController(IRepository<Products> repository, IRepository<ProductDetails> repositoryProductDetails)
+    public ProductController(IRepository<Products> repository, IRepository<ProductDetails> repositoryProductDetails, IRepository<StoredProducts> storedProduct)
     {
         RepositoryProduct = repository;
         RepositoryProductDetails = repositoryProductDetails;
+        RepositoryStoredProduct = storedProduct;
     }
 
-    [HttpGet("GetAll")]
-    public async Task<ActionResult> GetAll(CancellationToken cancellationToken)
+    [HttpGet("GetAll/{id}")]
+    public async Task<ActionResult> GetAll(int id, CancellationToken cancellationToken)
     {
-        var list = await RepositoryProduct.TableNoTracking.ToListAsync(cancellationToken);
+        var listStoredProduct = RepositoryStoredProduct.TableNoTracking.Include(x => x.Product)
+            .Where(x => x.StoreId == id).Select(x => x.Product).ToList();
 
-        return Ok(list);
+        return Ok(listStoredProduct);
     }
 
     [HttpGet("GetByID")]

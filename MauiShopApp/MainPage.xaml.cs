@@ -11,12 +11,19 @@ public partial class MainPage : ContentPage
         InitializeComponent();
 
         BindingContext = viewModel = new ProductViewModel(Navigation, this, config);
+
+        viewModel.GetStoreList();
     }
 
-    protected override void OnAppearing()
+    public void Picker_SelectedIndexChanged(object sender, EventArgs e)
     {
-        base.OnAppearing();
-        
-        viewModel.GetProductList();
+        var picker = (Picker)sender;
+        int selectedIndex = picker.SelectedIndex;
+
+        if (selectedIndex != -1)
+        {
+            int id = ((Stores)picker.ItemsSource[selectedIndex]).Id;
+            viewModel.GetProductList(id);
+        }
     }
 }

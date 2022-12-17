@@ -19,11 +19,11 @@ public class StoresDataInitializer : IDataInitializer
                 Name = "دیجیکالا",
             });
         }
-        if (!repository.TableNoTracking.Any(p => p.Name == "emalls"))
+        if (!repository.TableNoTracking.Any(p => p.Name == "ایمالز"))
         {
             repository.Add(new Stores()
             {
-                Name = "emalls",
+                Name = "ایمالز",
             });
         }
         if (!repository.TableNoTracking.Any(p => p.Name == "ترب"))

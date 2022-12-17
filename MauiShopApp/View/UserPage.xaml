@@ -2,7 +2,8 @@
 <ContentPage x:Class="MauiShopApp.View.UserPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:MauiShopApp.View">
+             xmlns:local="clr-namespace:MauiShopApp.View"
+             Shell.NavBarIsVisible="False">
 
     <ScrollView BackgroundColor="#f5f8fd">
         <Grid RowDefinitions="450,50,150,50,50,50">
@@ -29,6 +30,13 @@
                            TextColor="#fff" Text="Admin"  />
                 </StackLayout>
             </Grid>
+
+            <ActivityIndicator IsVisible="{Binding IsBusy}"
+                           IsRunning="{Binding IsBusy}"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="CenterAndExpand"
+                           Grid.RowSpan="2"
+                           Grid.ColumnSpan="2"/>
         </Grid>
     </ScrollView>
 </ContentPage>

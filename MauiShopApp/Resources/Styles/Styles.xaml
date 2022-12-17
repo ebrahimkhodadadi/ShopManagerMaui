@@ -388,5 +388,5 @@
                 Light={StaticResource Secondary}}"/>
         <Setter Property="HeightRequest" Value="2"/>
     </Style>
-
+    
 </ResourceDictionary>

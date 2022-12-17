@@ -4,10 +4,19 @@ namespace MauiShopApp.View;
 
 public partial class BasketPage : ContentPage
 {
-    public BasketPage()
+    BasketViewModel viewModel;
+    
+    public BasketPage(IConfiguration config)
     {
         InitializeComponent();
 
-        BindingContext = new BasketViewModel(Navigation, this);
+        BindingContext = viewModel = new BasketViewModel(Navigation, this, config);
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        viewModel.GetBaksetList();
     }
 }
