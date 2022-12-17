@@ -1,4 +1,7 @@
-﻿using MauiShopApp.View;
+﻿using Common.API;
+using MauiShopApp.View;
+using Microsoft.Extensions.Configuration;
+using System.Reflection;
 
 namespace MauiShopApp
 {
@@ -15,10 +18,20 @@ namespace MauiShopApp
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            //#region App Settings
+
+            //using var stream = Assembly.GetExecutingAssembly()
+            //    .GetManifestResourceStream("MauiShopApp.appsettings.json");
+            //var config = new ConfigurationBuilder().AddJsonStream(stream).Build();
+            //builder.Configuration.AddConfiguration(config);
+
+            //#endregion
+
             builder.Services.AddSingleton<UserPage>();
             builder.Services.AddSingleton<TransferLoggingPage>();
             builder.Services.AddSingleton<BasketPage>();
-            builder.Services.AddSingleton<TransgerPage>();
+            builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddSingleton<ApiService>();
             
             return builder.Build();
         }

@@ -1,41 +1,75 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiShopApp.MainPage">
+             x:Class="MauiShopApp.MainPage"
+             Title="{Binding Title}"
+             xmlns:cl="clr-namespace:MauiShopApp.Layouts"
+             xmlns:m="clr-namespace:MauiShopApp.Model"
+             >
 
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+    <ScrollView BackgroundColor="#f5f8fd">
+        <VerticalStackLayout Spacing="5">
+        <Grid Margin="30" >
+            <Label Text="Products Management" VerticalOptions="Center"/>
+            <Button Text=" Add Product " HorizontalOptions="End" VerticalOptions="Center"
+                                Command="{Binding NotImplementedCommand}"/>
+        </Grid>
 
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
+        <BoxView Style="{StaticResource HRule}" />
+            
+        <ScrollView>
+            <cl:HorizontalWrapLayout
+                            Margin="24" 
+                            VerticalOptions="Fill" 
+                            HorizontalOptions="Fill"
+                            BindableLayout.ItemsSource="{Binding ProductLists}"
+                            Spacing="24">
 
-            <Label
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="m:Item">
+                        <Frame CornerRadius="12"
+                                           BorderColor="{StaticResource Neutral}"
+                                           BackgroundColor="Transparent" Padding="0"
+                                           HeightRequest="170"
+                                           WidthRequest="105">
+                            <Grid RowDefinitions="2*,1*,40" RowSpacing="8">
+                                <Image Source="{Binding Image}" Margin="2"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center"
+                                       HeightRequest="130"
+                                       WidthRequest="70"/>
+                                <Label 
+                                                Grid.Row="1"
+                                                Margin="20,0"
+                                                Text="{Binding Title}" HorizontalOptions="Center" VerticalOptions="End"/>
+                                <Grid Background="{StaticResource TertiaryBrush}" IsClippedToBounds="True" Grid.Row="2">
+                                    <Label Text="Add to cart" TextColor="{StaticResource White}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                </Grid>
+                            </Grid>
+                        </Frame>
 
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
 
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
+                <Border Stroke="{StaticResource PrimaryBrush}"
+                                    StrokeThickness="1"
+                                    StrokeDashOffset="5" Background="Transparent"
+                                    StrokeDashArray="5,5"
+                                    HeightRequest="300"
+                                    WidthRequest="260">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12"/>
+                    </Border.StrokeShape>
+                    <Grid HeightRequest="300" VerticalOptions="Fill">
+                        <Label Text="Add New" TextColor="{StaticResource Primary}" VerticalOptions="Center" HorizontalOptions="Center"/>
+                    </Grid>
+                </Border>
 
-        </VerticalStackLayout>
+
+            </cl:HorizontalWrapLayout>
+        </ScrollView>
+    </VerticalStackLayout>
     </ScrollView>
-
+    
+    
 </ContentPage>

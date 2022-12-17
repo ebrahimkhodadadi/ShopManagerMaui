@@ -33,7 +33,7 @@ public class Startup
 
         app.UseHsts(env);
 
-        app.UseHttpsRedirection();
+        //app.UseHttpsRedirection();
 
         app.UseRouting();
 

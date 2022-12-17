@@ -11,7 +11,7 @@ namespace MauiShopApp
             Routing.RegisterRoute(nameof(UserPage), typeof(UserPage));
             Routing.RegisterRoute(nameof(TransferLoggingPage), typeof(TransferLoggingPage));
             Routing.RegisterRoute(nameof(BasketPage), typeof(BasketPage));
-            Routing.RegisterRoute(nameof(TransgerPage), typeof(TransgerPage));
+            Routing.RegisterRoute(nameof(MainPage), typeof(MainPage));
         }
     }
 }

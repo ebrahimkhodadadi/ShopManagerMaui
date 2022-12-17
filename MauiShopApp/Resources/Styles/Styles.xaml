@@ -381,4 +381,12 @@
         <Setter Property="SelectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
     </Style>
 
+    <Style TargetType="BoxView" x:Key="HRule">
+        <Setter Property="Color" 
+            Value="{AppThemeBinding 
+                Dark={StaticResource Secondary},
+                Light={StaticResource Secondary}}"/>
+        <Setter Property="HeightRequest" Value="2"/>
+    </Style>
+
 </ResourceDictionary>

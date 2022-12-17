@@ -49,11 +49,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Model\" />
+	  <None Remove="Resources\Images\bannerUser.png" />
+	  <None Remove="Resources\Images\image_not_found.png" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+	  <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
+	  <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Common\Common.csproj" />
+	  <ProjectReference Include="..\Entities\Entities.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -72,12 +80,19 @@
 	  <MauiXaml Update="View\TransferLoggingPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\TransgerPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="View\UserPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
+  
+  <ItemGroup>
+    <Using Include="Microsoft.Extensions.Configuration" />
+    <Using Include="CommunityToolkit.Mvvm" />
+    <Using Include="MauiShopApp.Service" />
+    <Using Include="MauiShopApp.Model" />
+    <Using Include="System.Text.Json" />
+    <Using Include="Common.API" />
+    <Using Include="Entities" />
+  </ItemGroup>
 
 </Project>
