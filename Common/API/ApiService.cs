@@ -9,21 +9,20 @@ public class ApiService : IApiService
 
     }
 
-    public async Task<T?> SendRequestAsync<T>(string uri, string payload, HttpMethod method)
+    public async Task<T?> SendRequestAsync<T>(string uri, object? payload, HttpMethod method)
     {
         var startDate = DateTime.Now;
-
+        var payloadSerialized = JsonConvert.SerializeObject(payload);
+        
         //Send Request
         using (var httpclient = new HttpClient())
         using (var request = new HttpRequestMessage(method, uri))
         {
             // set query
-            using (var stringContent = new StringContent(payload, Encoding.UTF8, "application/json"))
+            using (var stringContent = new StringContent(payloadSerialized, Encoding.UTF8, "application/json"))
             {
-                if (!string.IsNullOrWhiteSpace(payload))
+                if (payload != null)
                     request.Content = stringContent;
-                else
-                    request.Content = null;
 
                 // Send Request
                 using (var response = await httpclient

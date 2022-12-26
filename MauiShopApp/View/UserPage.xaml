@@ -14,7 +14,6 @@
                     <Grid Margin="20,5">
                         <Label FontFamily="IconFont" FontSize="20" 
                                VerticalOptions="Center" 
-                               Text="{StaticResource White}"
                                TextColor="White"/>
 
                         <Entry Margin="30,0" FontFamily="NunitoSansRegular"

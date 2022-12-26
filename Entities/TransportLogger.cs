@@ -20,5 +20,7 @@ public class TransportLogger : BaseEntity
 
     public Users TransPorter { get; set; }
     public int TransPorterId { get; set; }
+
+    public ICollection<TransferLoggerDetail> TransferLoggerDetails { get; set; }
     #endregion
 }

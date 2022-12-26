@@ -62,6 +62,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Common\Common.csproj" />
 	  <ProjectReference Include="..\Entities\Entities.csproj" />
+	  <ProjectReference Include="..\Shared\Shared.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -94,6 +95,7 @@
     <Using Include="Common.API" />
     <Using Include="Entities" />
     <Using Include="System.Collections.ObjectModel" />
+    <Using Include="Shared.Models" />
   </ItemGroup>
 
 </Project>

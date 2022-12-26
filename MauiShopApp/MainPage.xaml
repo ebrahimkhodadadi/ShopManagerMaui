@@ -3,17 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiShopApp.MainPage"
              Title="{Binding Title}"
+             xmlns:viewmodel="clr-namespace:MauiShopApp.ViewModel"
              xmlns:cl="clr-namespace:MauiShopApp.Layouts"
              xmlns:m="clr-namespace:MauiShopApp.Model"
              >
-
-    <ScrollView BackgroundColor="#f5f8fd">
+    
+    <ScrollView BackgroundColor="{DynamicResource Background}">
         <VerticalStackLayout Spacing="5">
             <Grid Margin="30" >
-                <!--<Label Text="Products Management" VerticalOptions="Center"/>
-            <Button Text=" Add Product " 
-                                Command="{Binding NotImplementedCommand}"/>-->
-
                 <HorizontalStackLayout FlowDirection="LeftToRight" Grid.ColumnSpan="2">
                     <Label
                         Text="Store : "
@@ -22,12 +19,13 @@
                         FontSize="15"/>
 
                     <Picker 
+                        SelectedItem="{Binding store, Mode=TwoWay}"
                         Title="Select a Store"
                         ItemsSource="{Binding StoreList}"
                         ItemDisplayBinding="{Binding Name}" 
                         SelectedIndexChanged="Picker_SelectedIndexChanged"
                         TextColor="{DynamicResource Accent}"
-                        FontSize="20"
+                        FontSize="16"
                         FontAttributes="Bold"/>
                 </HorizontalStackLayout>
                 
@@ -35,6 +33,12 @@
 
             <BoxView Style="{StaticResource HRule}" />
 
+            <ActivityIndicator IsVisible="{Binding IsBusy}"
+                           IsRunning="{Binding IsBusy}"
+                           HorizontalOptions="Fill"
+                           VerticalOptions="Center"
+			   Color="{StaticResource Primary}"/>
+            
             <ScrollView>
                 <cl:HorizontalWrapLayout
                             Margin="24" 
@@ -47,7 +51,7 @@
                         <DataTemplate x:DataType="m:Item">
                             <Frame CornerRadius="12"
                                            BorderColor="{StaticResource Neutral}"
-                                           BackgroundColor="Transparent" Padding="0"
+                                           BackgroundColor="Thistle" Padding="0"
                                            HeightRequest="170"
                                            WidthRequest="105">
                                 <Grid RowDefinitions="2*,1*,40" RowSpacing="8">
@@ -61,7 +65,9 @@
                                                 Margin="20,0"
                                                 Text="{Binding Title}" HorizontalOptions="Center" VerticalOptions="End"/>
                                     <Grid Background="{StaticResource TertiaryBrush}" IsClippedToBounds="True" Grid.Row="2">
-                                        <Label Text="Add to cart" TextColor="{StaticResource White}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                        <Button Text="Add to cart" Background="Transparent" TextColor="{StaticResource White}" HorizontalOptions="Center" VerticalOptions="Center"                                              
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProductViewModel}}, Path=AddProductToBasketCommand}"
+                                            CommandParameter="{Binding .}"/>
                                     </Grid>
                                 </Grid>
                             </Frame>

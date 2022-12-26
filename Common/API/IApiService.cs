@@ -12,6 +12,6 @@ public interface IApiService //: IScopedDependency
     /// <param name="payload">محتوا</param>
     /// <param name="method">متد</param>
     /// <returns>response httpRequest</returns>
-    Task<T?> SendRequestAsync<T>(string uri, string payload, HttpMethod method);
+    Task<T?> SendRequestAsync<T>(string uri, object? payload, HttpMethod method);
 }
 

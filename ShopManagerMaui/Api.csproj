@@ -16,6 +16,7 @@
   
   <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
   
   	<ItemGroup>

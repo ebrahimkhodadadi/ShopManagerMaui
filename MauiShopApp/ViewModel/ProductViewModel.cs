@@ -1,5 +1,8 @@
 ﻿
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Entities;
+using MauiShopApp.View;
 using System.Diagnostics;
 
 namespace MauiShopApp.ViewModel;
@@ -11,6 +14,8 @@ public partial class ProductViewModel : BaseViewModel
     private ApiService apiService;
     IConfiguration configuration;
 
+    public Stores store { get; set; }
+    
     public ObservableCollection<Item> ProductLists { get; } = new();
     public ObservableCollection<Stores> StoreList { get; set; } = new();
 
@@ -24,7 +29,7 @@ public partial class ProductViewModel : BaseViewModel
     }
 
     [RelayCommand]
-    public async void GetProductList(int storeID)
+    public async void GetProductList()
     {
         if (IsBusy)
             return;
@@ -35,9 +40,14 @@ public partial class ProductViewModel : BaseViewModel
 
             ProductLists.Clear();
 
-            var urlApi = await ReadJsonFile.ReadJson<Settings>();
-            var productLists = await apiService.SendRequestAsync<List<Products>>(urlApi.ApiUrl + $"Product/GetAll/{storeID}", string.Empty, HttpMethod.Get);
+            if (store == null)
+                return;
 
+            var urlApi = await ReadJsonFile.ReadJson<Settings>();
+            var productLists = await apiService.SendRequestAsync<List<Products>>(urlApi.ApiUrl + $"Product/GetAll?storeID={store.Id}&userID=1", null, HttpMethod.Get);
+
+            if (productLists == null)
+                return;
             if (!productLists.Any())
                 return;
 
@@ -45,6 +55,7 @@ public partial class ProductViewModel : BaseViewModel
             {
                 ProductLists.Add(new Item()
                 {
+                    Id = product.Id,
                     Title = product.Name,
                     Image = product.Image ??= "image_not_found.png",
                 });
@@ -71,7 +82,7 @@ public partial class ProductViewModel : BaseViewModel
             StoreList.Clear();
 
             var urlApi = await ReadJsonFile.ReadJson<Settings>();
-            var list = await apiService.SendRequestAsync<List<Stores>>(urlApi.ApiUrl + "Store/GetAll", string.Empty, HttpMethod.Get);
+            var list = await apiService.SendRequestAsync<List<Stores>>(urlApi.ApiUrl + "Store/GetAll", null, HttpMethod.Get);
 
             if (!list.Any())
                 return;
@@ -89,6 +100,42 @@ public partial class ProductViewModel : BaseViewModel
         }
         finally
         {
+        }
+    }
+
+    [RelayCommand]
+    public async void AddProductToBasket(Item product)
+    {
+        if (IsBusy)
+            return;
+
+        try
+        {
+            IsBusy = true;
+            
+            var urlApi = await ReadJsonFile.ReadJson<Settings>();
+            var result = await apiService.SendRequestAsync<bool>(urlApi.ApiUrl + $"Product/AddToBasket?storeID={store.Id}&productId={product.Id}&userID=1", null, HttpMethod.Get);
+
+            if (result)
+            {
+                await _pageService.DisplayAlert("Success!", "Product added to basket.", "Ok");
+                
+                await _navigationService.PushAsync(new BasketPage(configuration));
+            }
+            else
+            {
+                await _pageService.DisplayAlert("Error!", "Basket Filled with another store products", "Ok");
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine(e);
+            await Shell.Current.DisplayAlert("Error!",
+                $"Decription: {e.Message}", "Ok");
+        }
+        finally
+        {
+            IsBusy = false;
         }
     }
 }

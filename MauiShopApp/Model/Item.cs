@@ -6,6 +6,9 @@ namespace MauiShopApp.Model;
 public partial class Item
 {
     [ObservableProperty]
+    int id;
+
+    [ObservableProperty]
     string title;
 
     [ObservableProperty]

@@ -36,4 +36,5 @@ public class ApplicationDbContext : DbContext
     DbSet<TransportLogger> TransportLogger { get; set; }
     DbSet<Users> Users { get; set; }
     DbSet<Basket> Baskets { get; set; }
+    DbSet<TransferLoggerDetail> TransferLoggerDetail { get; set; }
 }

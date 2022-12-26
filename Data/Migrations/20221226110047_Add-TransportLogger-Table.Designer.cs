@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221216162248_Image-string")]
-    partial class Imagestring
+    [Migration("20221226110047_Add-TransportLogger-Table")]
+    partial class AddTransportLoggerTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,32 @@ namespace Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("Entities.Basket", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StoredProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StoredProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Baskets");
+                });
 
             modelBuilder.Entity("Entities.ProductDetails", b =>
                 {
@@ -116,6 +142,32 @@ namespace Data.Migrations
                     b.ToTable("Stores");
                 });
 
+            modelBuilder.Entity("Entities.TransferLoggerDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TransferLoggerId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("TransferLoggerId");
+
+                    b.ToTable("TransferLoggerDetail");
+                });
+
             modelBuilder.Entity("Entities.TransportLogger", b =>
                 {
                     b.Property<int>("Id")
@@ -178,6 +230,25 @@ namespace Data.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Entities.Basket", b =>
+                {
+                    b.HasOne("Entities.StoredProducts", "StoredProduct")
+                        .WithMany()
+                        .HasForeignKey("StoredProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Users", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("StoredProduct");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Entities.ProductDetails", b =>
                 {
                     b.HasOne("Entities.Products", "Product")
@@ -206,6 +277,25 @@ namespace Data.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("Store");
+                });
+
+            modelBuilder.Entity("Entities.TransferLoggerDetail", b =>
+                {
+                    b.HasOne("Entities.Products", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.TransportLogger", "TransferLogger")
+                        .WithMany()
+                        .HasForeignKey("TransferLoggerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("TransferLogger");
                 });
 
             modelBuilder.Entity("Entities.TransportLogger", b =>
