@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage x:Class="MauiShopApp.View.BasketPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MauiShopApp.View"
+             xmlns:pages="clr-namespace:MauiShopApp.ViewModel"
+             xmlns:cl="clr-namespace:MauiShopApp.Layouts"
+             Title="{Binding Title}">
+
+    <ScrollView BackgroundColor="{DynamicResource Background}" FlowDirection="LeftToRight">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="90" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>          
+            </Grid.ColumnDefinitions>
+
+            <ActivityIndicator IsVisible="{Binding IsBusy}"
+                           IsRunning="{Binding IsBusy}"
+                           HorizontalOptions="Fill"
+                           VerticalOptions="Center"
+			   Color="{StaticResource Primary}"
+                               />
+
+            <ListView RowHeight="120" SelectionMode="None" FlowDirection="RightToLeft" Margin="20,20" ItemsSource="{Binding basketlist}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Frame CornerRadius="5"
+                                           BorderColor="{StaticResource Black}"
+                                           BackgroundColor="White"
+                                           HeightRequest="70"
+                                           WidthRequest="80">
+                                    <Image Grid.RowSpan="2"
+                           Source="{Binding StoredProduct.Product.Image}"
+                           Aspect="AspectFill"
+                           HeightRequest="60"
+                           WidthRequest="60" 
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+                                </Frame>
+                                <Label Grid.Column="1"
+                                   FontSize="Medium"
+                           Text="{Binding StoredProduct.Product.Name}"
+                           FontAttributes="Bold" 
+                           Margin="20,5,0,0"/>
+                                <Stepper Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="{Binding StoredProduct.Count}" Value="{Binding Count}" Increment="1" Margin="10,-40,0,0" ValueChanged="OnStepperValueChanged"/>
+                                <Label Text="{Binding Count}" Grid.Row="1" Grid.Column="2" Margin="240,-25,0,0"></Label>
+                                <BoxView Style="{StaticResource HRule}" Color="Black" Opacity="0.05" Margin="0,20" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Grid RowDefinitions="1*, 1*" ColumnDefinitions="1*, 1*, 1*" Grid.Row="1" Margin="30,-10,0,0">
+                <Label Text="Destination: " Margin="0,0,0,0"/>
+                <Picker Grid.Column="1"
+                        SelectedItem="{Binding store, Mode=TwoWay}"
+                        Title="Select a Store"
+                        ItemsSource="{Binding StoreList}"
+                        ItemDisplayBinding="{Binding Name}" 
+                        TextColor="{DynamicResource Accent}"
+                        FontAttributes="Bold"
+                        Margin="-40,-10,0,0"
+                        SelectedIndexChanged="Picker_SelectedIndexChanged"/>
+
+                <Label Grid.Row="1" Text="Description: " Margin="0,0,0,0" />
+                <Entry Text="{Binding Description, Mode=TwoWay}" Placeholder="input description here" 
+                       Grid.Row="1" Grid.Column="1" Margin="-40,-10,0,0" />
+                
+                <Button x:Name="transferBtn" Text="Transfer >" Grid.Row="1" Grid.Column="2" HorizontalOptions="Center" 
+                        VerticalOptions="Center" Clicked="Button_Clicked"
+                    IsEnabled="{Binding transferbtnenabled, Mode=TwoWay}"/>
+            </Grid>
+        </Grid>
+    </ScrollView>
+
+</ContentPage>

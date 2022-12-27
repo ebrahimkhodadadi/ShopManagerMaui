@@ -17,6 +17,7 @@ public class ProductDataInitializer : IDataInitializer
             repository.Add(new Products()
             {
                 Name = "موبایل هاوایی",
+                Image = "mobile.png"
             });
         }
         if (!repository.TableNoTracking.Any(p => p.Name == "لپ تاپ asus"))
@@ -31,6 +32,7 @@ public class ProductDataInitializer : IDataInitializer
             repository.Add(new Products()
             {
                 Name = "فرش",
+                Image = "carpet.png"
             });
         }
     }

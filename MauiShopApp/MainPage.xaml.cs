@@ -1,24 +1,30 @@
-﻿namespace MauiShopApp
+﻿using MauiShopApp.ViewModel;
+
+namespace MauiShopApp;
+
+public partial class MainPage : ContentPage
 {
-    public partial class MainPage : ContentPage
+    ProductViewModel viewModel;
+
+    public MainPage(IConfiguration config)
     {
-        int count = 0;
+        InitializeComponent();
 
-        public MainPage()
-        {
-            InitializeComponent();
-        }
+        BindingContext = viewModel = new ProductViewModel(Navigation, this, config);
+    }
 
-        private void OnCounterClicked(object sender, EventArgs e)
-        {
-            count++;
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
+        if(viewModel.StoreList.Count <= 0)
+            viewModel.GetStoreList();
 
-            SemanticScreenReader.Announce(CounterBtn.Text);
-        }
+        viewModel.GetProductList();
+    }
+
+    public void Picker_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        viewModel.GetProductList();
     }
 }

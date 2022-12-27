@@ -1,41 +1,83 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiShopApp.MainPage">
+             x:Class="MauiShopApp.MainPage"
+             Title="{Binding Title}"
+             xmlns:viewmodel="clr-namespace:MauiShopApp.ViewModel"
+             xmlns:cl="clr-namespace:MauiShopApp.Layouts"
+             xmlns:m="clr-namespace:MauiShopApp.Model"
+             >
 
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+    <ScrollView BackgroundColor="{DynamicResource Background}" FlowDirection="LeftToRight">
+        <VerticalStackLayout Spacing="5">
+            <Grid Margin="30" >
+                <HorizontalStackLayout FlowDirection="LeftToRight" Grid.ColumnSpan="2">
+                    <Label
+                        Text="Store : "
+                        TextColor="{DynamicResource Accent}"
+                        Margin="0,10,5,0"
+                        FontSize="15"/>
 
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
+                    <Picker 
+                        SelectedItem="{Binding store, Mode=TwoWay}"
+                        Title="Select a Store"
+                        ItemsSource="{Binding StoreList}"
+                        ItemDisplayBinding="{Binding Name}" 
+                        SelectedIndexChanged="Picker_SelectedIndexChanged"
+                        TextColor="{DynamicResource Accent}"
+                        FontSize="16"
+                        FontAttributes="Bold"/>
+                </HorizontalStackLayout>
+                
+            </Grid>
 
-            <Label
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
+            <BoxView Style="{StaticResource HRule}" />
 
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
+            <ActivityIndicator IsVisible="{Binding IsBusy}"
+                           IsRunning="{Binding IsBusy}"
+                           HorizontalOptions="Fill"
+                           VerticalOptions="Center"
+			   Color="{StaticResource Primary}"/>
+            
+            <ScrollView>
+                <cl:HorizontalWrapLayout
+                            Margin="24" 
+                            VerticalOptions="Fill" 
+                            HorizontalOptions="Fill"
+                            BindableLayout.ItemsSource="{Binding ProductLists}"
+                            Spacing="24">
 
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="m:Item">
+                            <Frame CornerRadius="12"
+                                           BorderColor="WhiteSmoke"
+                                           BackgroundColor="Thistle" Padding="0"
+                                           HeightRequest="170"
+                                           WidthRequest="105">
+                                <Grid RowDefinitions="2*,1*,40" RowSpacing="8">
+                                    <Image Source="{Binding Image}" Margin="2"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Center"
+                                       HeightRequest="130"
+                                       WidthRequest="70"/>
+                                    <Label 
+                                                Grid.Row="1"
+                                                Margin="20,0"
+                                                Text="{Binding Title}" HorizontalOptions="Center" VerticalOptions="End"/>
+                                    <Grid Background="{StaticResource TertiaryBrush}" IsClippedToBounds="True" Grid.Row="2">
+                                        <Button Text="Add to cart" Background="Transparent" TextColor="{StaticResource White}" HorizontalOptions="Center" VerticalOptions="Center"                                              
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProductViewModel}}, Path=AddProductToBasketCommand}"
+                                            CommandParameter="{Binding .}"/>
+                                    </Grid>
+                                </Grid>
+                            </Frame>
 
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </cl:HorizontalWrapLayout>
+            </ScrollView>
         </VerticalStackLayout>
     </ScrollView>
+
 
 </ContentPage>
