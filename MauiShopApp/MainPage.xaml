@@ -7,8 +7,8 @@
              xmlns:cl="clr-namespace:MauiShopApp.Layouts"
              xmlns:m="clr-namespace:MauiShopApp.Model"
              >
-    
-    <ScrollView BackgroundColor="{DynamicResource Background}">
+
+    <ScrollView BackgroundColor="{DynamicResource Background}" FlowDirection="LeftToRight">
         <VerticalStackLayout Spacing="5">
             <Grid Margin="30" >
                 <HorizontalStackLayout FlowDirection="LeftToRight" Grid.ColumnSpan="2">
@@ -50,7 +50,7 @@
                     <BindableLayout.ItemTemplate>
                         <DataTemplate x:DataType="m:Item">
                             <Frame CornerRadius="12"
-                                           BorderColor="{StaticResource Neutral}"
+                                           BorderColor="WhiteSmoke"
                                            BackgroundColor="Thistle" Padding="0"
                                            HeightRequest="170"
                                            WidthRequest="105">

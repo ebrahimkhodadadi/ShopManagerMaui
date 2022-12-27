@@ -6,7 +6,6 @@ public class TransportLogger : BaseEntity
     [MaxLength(100)]
     public string? Title { get; set; }
     public string? Description { get; set; }
-    public string ProductList { get; set; }
     public int Count { get; set; }
 
     #region Foreign Key

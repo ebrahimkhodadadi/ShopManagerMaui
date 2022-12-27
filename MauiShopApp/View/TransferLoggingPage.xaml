@@ -2,13 +2,54 @@
 <ContentPage x:Class="MauiShopApp.View.TransferLoggingPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:MauiShopApp.View">
-    <ContentPage.Content>
+             xmlns:local="clr-namespace:MauiShopApp.View"
+             xmlns:viewmodel="clr-namespace:MauiShopApp.ViewModel"
+             >
+
+    <ScrollView BackgroundColor="{DynamicResource Background}" FlowDirection="RightToLeft">
         <Grid>
-            <Label Text="Welcome to .NET MAUI!!!"
-                   HorizontalOptions="Center"
-                   TextColor="Purple"
-                   VerticalOptions="Center"/>
+
+            <ActivityIndicator IsVisible="{Binding IsBusy}"
+                           IsRunning="{Binding IsBusy}"
+                           HorizontalOptions="Fill"
+                           VerticalOptions="Center"
+			   Color="{StaticResource Primary}"
+                               />
+
+            <ListView RowHeight="90" SelectionMode="None" FlowDirection="RightToLeft" Margin="21,10,0,0" ItemsSource="{Binding TransportLoggerList}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Column="1"
+                           Text="{Binding Title}"
+                           FontAttributes="Bold" />
+                                <Label Grid.Row="1"
+                           Grid.Column="1"
+                           Text="{Binding Description}"
+                           FontAttributes="Italic"
+                           VerticalOptions="End" />
+
+                                <Button Grid.Row="1" Margin="0,0,-350,0" WidthRequest="100" HeightRequest="40"
+                            Text="Detail" TextColor="{StaticResource White}" HorizontalOptions="End" VerticalOptions="Center"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TransferLoggingViewModel}}, Path=ShowDetailCommand}"
+                                            CommandParameter="{Binding .}"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
         </Grid>
-    </ContentPage.Content>
+    </ScrollView>
 </ContentPage>

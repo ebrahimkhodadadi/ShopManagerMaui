@@ -5,7 +5,7 @@
              xmlns:local="clr-namespace:MauiShopApp.View"
              Shell.NavBarIsVisible="False">
 
-    <ScrollView BackgroundColor="#f5f8fd">
+    <ScrollView BackgroundColor="#f5f8fd" FlowDirection="LeftToRight">
         <Grid RowDefinitions="450,50,150,50,50,50">
             <Image Source="banneruser" VerticalOptions="Fill" HorizontalOptions="FillAndExpand" Aspect="AspectFill" />
 

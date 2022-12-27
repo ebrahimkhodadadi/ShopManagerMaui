@@ -20,10 +20,8 @@ namespace MauiShopApp
 
             //#region App Settings
 
-            //using var stream = Assembly.GetExecutingAssembly()
-            //    .GetManifestResourceStream("MauiShopApp.appsettings.json");
-            //var config = new ConfigurationBuilder().AddJsonStream(stream).Build();
-            //builder.Configuration.AddConfiguration(config);
+            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+            Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
 
             //#endregion
 

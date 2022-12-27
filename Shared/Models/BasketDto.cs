@@ -29,6 +29,7 @@ public class BasketListDto
 public class TransferBasketDto
 {
     public int UserId { get; set; }
-    public Stores DestinaionStore { get; set; }
     public string? Description { get; set; }
+    public int DestinaionStoreID { get; set; }
+    public string? DestinaionStoreName { get; set; }
 }

@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Entities;
+using MauiShopApp.View;
 using System.Diagnostics;
 
 namespace MauiShopApp.ViewModel;
@@ -187,10 +188,12 @@ public partial class BasketViewModel : BaseViewModel
             var urlApi = await ReadJsonFile.ReadJson<Settings>();
             var result = await apiService.SendRequestAsync<bool>(
                 urlApi.ApiUrl + "Transfer/TransferBasket",
-                basketlist.Select(x => new TransferBasketDto { UserId = 1, Description = Description, DestinaionStore = store }),
+                new TransferBasketDto { UserId = 1, Description = Description, DestinaionStoreID = store.Id, DestinaionStoreName = store.Name },
                 HttpMethod.Post);
 
-            GetBaksetList();
+            await _pageService.DisplayAlert("Success!", $"Products Transferd to {store.Name}.", "Ok");
+
+            await _navigationService.PushAsync(new TransferLoggingPage(configuration));
         }
         catch (Exception e)
         {
