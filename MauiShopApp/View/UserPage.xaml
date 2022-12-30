@@ -7,28 +7,8 @@
 
     <ScrollView BackgroundColor="#f5f8fd" FlowDirection="LeftToRight">
         <Grid RowDefinitions="450,50,150,50,50,50">
-            <Image Source="banneruser" VerticalOptions="Fill" HorizontalOptions="FillAndExpand" Aspect="AspectFill" />
-
-            <Grid RowDefinitions="330,50">
-                <Grid Margin="20,30" HeightRequest="50" BackgroundColor="#44ffffff" VerticalOptions="Start" HorizontalOptions="FillAndExpand">
-                    <Grid Margin="20,5">
-                        <Label FontFamily="IconFont" FontSize="20" 
-                               VerticalOptions="Center" 
-                               TextColor="White"/>
-
-                        <Entry Margin="30,0" FontFamily="NunitoSansRegular"
-                               VerticalOptions="Center" HorizontalOptions="FillAndExpand" 
-                               Placeholder="What are you looking for?"
-                               PlaceholderColor="White" TextColor="#fff" />
-                    </Grid>
-                </Grid>
-                <StackLayout Grid.Row="1" Margin="20,0">
-                    <Label FontFamily="NunitoSansRegular" FontSize="17" 
-                           Text="Wellcome" TextColor="#cfcfcf"/>
-                    <Label FontSize="35" FontFamily="NunitoSansExtraBold" 
-                           TextColor="#fff" Text="Admin"  />
-                </StackLayout>
-            </Grid>
+            <Image Source="landing_1" VerticalOptions="Fill" HorizontalOptions="FillAndExpand" Aspect="AspectFill" />
+            <Image Source="landing_2" VerticalOptions="Fill" HorizontalOptions="FillAndExpand" Margin="0,0,0,-750"/>
 
             <ActivityIndicator IsVisible="{Binding IsBusy}"
                            IsRunning="{Binding IsBusy}"

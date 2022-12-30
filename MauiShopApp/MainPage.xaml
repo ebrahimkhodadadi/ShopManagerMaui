@@ -6,78 +6,79 @@
              xmlns:viewmodel="clr-namespace:MauiShopApp.ViewModel"
              xmlns:cl="clr-namespace:MauiShopApp.Layouts"
              xmlns:m="clr-namespace:MauiShopApp.Model"
+             FlowDirection="RightToLeft"
              >
 
-    <ScrollView BackgroundColor="{DynamicResource Background}" FlowDirection="LeftToRight">
-        <VerticalStackLayout Spacing="5">
-            <Grid Margin="30" >
-                <HorizontalStackLayout FlowDirection="LeftToRight" Grid.ColumnSpan="2">
-                    <Label
-                        Text="Store : "
+    <VerticalStackLayout  BackgroundColor="{DynamicResource Background}" Spacing="5">
+        <Grid Margin="30,20,20,20" >
+            <HorizontalStackLayout Grid.ColumnSpan="2">
+                <Label
+                        Text="دسته بندی : "
                         TextColor="{DynamicResource Accent}"
                         Margin="0,10,5,0"
-                        FontSize="15"/>
+                        FontSize="18"/>
 
-                    <Picker 
+                <Picker 
                         SelectedItem="{Binding store, Mode=TwoWay}"
-                        Title="Select a Store"
+                        Title="انبار مبدا را انتخاب نمایید"
                         ItemsSource="{Binding StoreList}"
                         ItemDisplayBinding="{Binding Name}" 
                         SelectedIndexChanged="Picker_SelectedIndexChanged"
                         TextColor="{DynamicResource Accent}"
-                        FontSize="16"
+                        FontSize="20"
                         FontAttributes="Bold"/>
-                </HorizontalStackLayout>
-                
-            </Grid>
+            </HorizontalStackLayout>
 
-            <BoxView Style="{StaticResource HRule}" />
+        </Grid>
 
-            <ActivityIndicator IsVisible="{Binding IsBusy}"
+        <BoxView Style="{StaticResource HRule}" />
+
+        <ActivityIndicator IsVisible="{Binding IsBusy}"
                            IsRunning="{Binding IsBusy}"
                            HorizontalOptions="Fill"
                            VerticalOptions="Center"
 			   Color="{StaticResource Primary}"/>
-            
-            <ScrollView>
-                <cl:HorizontalWrapLayout
+
+        <Image x:Name="imgEmpty" IsVisible="{Binding IsEmpty, Mode=TwoWay}" Source="box" VerticalOptions="Center" HorizontalOptions="Center" HeightRequest="500" WidthRequest="300" />
+
+        <ScrollView>
+            <cl:HorizontalWrapLayout
                             Margin="24" 
                             VerticalOptions="Fill" 
                             HorizontalOptions="Fill"
                             BindableLayout.ItemsSource="{Binding ProductLists}"
                             Spacing="24">
 
-                    <BindableLayout.ItemTemplate>
-                        <DataTemplate x:DataType="m:Item">
-                            <Frame CornerRadius="12"
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="m:Item">
+                        <Frame CornerRadius="12"
                                            BorderColor="WhiteSmoke"
                                            BackgroundColor="Thistle" Padding="0"
                                            HeightRequest="170"
                                            WidthRequest="105">
-                                <Grid RowDefinitions="2*,1*,40" RowSpacing="8">
-                                    <Image Source="{Binding Image}" Margin="2"
+                            <Grid RowDefinitions="2*,1*,40" RowSpacing="8">
+                                <Image Source="{Binding Image}" Margin="2"
                                                    HorizontalOptions="Center"
                                                    VerticalOptions="Center"
                                        HeightRequest="130"
                                        WidthRequest="70"/>
-                                    <Label 
+                                <Label 
                                                 Grid.Row="1"
                                                 Margin="20,0"
                                                 Text="{Binding Title}" HorizontalOptions="Center" VerticalOptions="End"/>
-                                    <Grid Background="{StaticResource TertiaryBrush}" IsClippedToBounds="True" Grid.Row="2">
-                                        <Button Text="Add to cart" Background="Transparent" TextColor="{StaticResource White}" HorizontalOptions="Center" VerticalOptions="Center"                                              
+                                <Grid Background="{StaticResource TertiaryBrush}" IsClippedToBounds="True" Grid.Row="2">
+                                    <Button Text="Add to cart" Background="Transparent" TextColor="{StaticResource White}" HorizontalOptions="Center" VerticalOptions="Center"                                              
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:ProductViewModel}}, Path=AddProductToBasketCommand}"
                                             CommandParameter="{Binding .}"/>
-                                    </Grid>
                                 </Grid>
-                            </Frame>
+                            </Grid>
+                        </Frame>
 
-                        </DataTemplate>
-                    </BindableLayout.ItemTemplate>
-                </cl:HorizontalWrapLayout>
-            </ScrollView>
-        </VerticalStackLayout>
-    </ScrollView>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </cl:HorizontalWrapLayout>
+        </ScrollView>
+    </VerticalStackLayout>
 
 
 </ContentPage>

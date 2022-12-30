@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:MauiShopApp.View"
              xmlns:viewmodel="clr-namespace:MauiShopApp.ViewModel"
+             Title="گزارشات"
              >
 
     <ScrollView BackgroundColor="{DynamicResource Background}" FlowDirection="RightToLeft">
@@ -41,7 +42,7 @@
                            VerticalOptions="End" />
 
                                 <Button Grid.Row="1" Margin="0,0,-350,0" WidthRequest="100" HeightRequest="40"
-                            Text="Detail" TextColor="{StaticResource White}" HorizontalOptions="End" VerticalOptions="Center"
+                            Text="جزئیات" TextColor="{StaticResource White}" HorizontalOptions="End" VerticalOptions="Center"
                                             Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TransferLoggingViewModel}}, Path=ShowDetailCommand}"
                                             CommandParameter="{Binding .}"/>
                             </Grid>

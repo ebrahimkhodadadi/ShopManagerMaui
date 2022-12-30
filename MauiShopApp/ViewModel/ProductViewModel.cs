@@ -1,7 +1,6 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Entities;
 using MauiShopApp.View;
 using System.Diagnostics;
 
@@ -14,8 +13,16 @@ public partial class ProductViewModel : BaseViewModel
     private ApiService apiService;
     IConfiguration configuration;
 
-    public Stores store { get; set; }
+
+    [ObservableProperty]
+    private bool isEmpty = true;
+
+    partial void OnIsEmptyChanged(bool value) =>
+    IsEmptyChanged?.Invoke(this, new EventArgs());
+    public event EventHandler IsEmptyChanged;
     
+    public Stores store { get; set; }
+
     public ObservableCollection<Item> ProductLists { get; } = new();
     public ObservableCollection<Stores> StoreList { get; set; } = new();
 
@@ -61,6 +68,8 @@ public partial class ProductViewModel : BaseViewModel
                 });
             }
 
+            isEmpty = ProductLists.Any() ? false : true;
+            OnIsEmptyChanged(isEmpty);
         }
         catch (Exception e)
         {
@@ -91,6 +100,9 @@ public partial class ProductViewModel : BaseViewModel
             {
                 StoreList.Add(item);
             }
+
+            isEmpty = ProductLists.Any() ? false : true;
+            OnIsEmptyChanged(isEmpty);
         }
         catch (Exception e)
         {
@@ -112,19 +124,19 @@ public partial class ProductViewModel : BaseViewModel
         try
         {
             IsBusy = true;
-            
+
             var urlApi = await ReadJsonFile.ReadJson<Settings>();
             var result = await apiService.SendRequestAsync<bool>(urlApi.ApiUrl + $"Product/AddToBasket?storeID={store.Id}&productId={product.Id}&userID=1", null, HttpMethod.Get);
 
             if (result)
             {
-                await _pageService.DisplayAlert("Success!", "Product added to basket.", "Ok");
-                
+                await _pageService.DisplayAlert("آماده برای انتقال!", "محصول به سبد انتقالات اضافه شد", "باشه");
+
                 await _navigationService.PushAsync(new BasketPage(configuration));
             }
             else
             {
-                await _pageService.DisplayAlert("Error!", "Basket Filled with another store products", "Ok");
+                await _pageService.DisplayAlert("خطا!", "انتقال محصول با خطا مواجه شد", "Ok");
             }
         }
         catch (Exception e)
