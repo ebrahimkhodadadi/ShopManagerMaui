@@ -64,11 +64,11 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Grid RowDefinitions="1*, 1*" ColumnDefinitions="1*, 1*, 1*" Grid.Row="1" Margin="30,-10,0,0">
-                <Label Text="Destination: " Margin="0,0,0,0"/>
+            <Grid RowDefinitions="1*, 1*" ColumnDefinitions="1*, 1*, 1*" Grid.Row="1" Margin="30,-10,0,0" FlowDirection="RightToLeft">
+                <Label Text="ارسال به انبار: " Margin="20,0,0,0"/>
                 <Picker Grid.Column="1"
                         SelectedItem="{Binding store, Mode=TwoWay}"
-                        Title="Select a Store"
+                        Title="انبار مقصد را انتخاب نمایید"
                         ItemsSource="{Binding StoreList}"
                         ItemDisplayBinding="{Binding Name}" 
                         TextColor="{DynamicResource Accent}"
@@ -76,11 +76,11 @@
                         Margin="-40,-10,0,0"
                         SelectedIndexChanged="Picker_SelectedIndexChanged"/>
 
-                <Label Grid.Row="1" Text="Description: " Margin="0,0,0,0" />
-                <Entry Text="{Binding Description, Mode=TwoWay}" Placeholder="input description here" 
+                <Label Grid.Row="1" Text="توضیحات تکمیلی: " Margin="0,0,0,0" />
+                <Entry Text="{Binding Description, Mode=TwoWay}" Placeholder="متن را اینجا بنویسید" 
                        Grid.Row="1" Grid.Column="1" Margin="-40,-10,0,0" />
                 
-                <Button x:Name="transferBtn" Text="Transfer >" Grid.Row="1" Grid.Column="2" HorizontalOptions="Center" 
+                <Button x:Name="transferBtn" Text="انتقال  >" Grid.Row="1" Grid.Column="2" HorizontalOptions="Center" 
                         VerticalOptions="Center" Clicked="Button_Clicked"
                     IsEnabled="{Binding transferbtnenabled, Mode=TwoWay}"/>
             </Grid>

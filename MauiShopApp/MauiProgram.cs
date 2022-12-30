@@ -14,8 +14,8 @@ namespace MauiShopApp
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
                 {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("Vazirmatn-Regular.ttf", "VazirRegular");
+                    fonts.AddFont("Vazirmatn-Bold.ttf", "VazirBold");
                 });
 
             //#region App Settings

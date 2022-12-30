@@ -191,7 +191,7 @@ public partial class BasketViewModel : BaseViewModel
                 new TransferBasketDto { UserId = 1, Description = Description, DestinaionStoreID = store.Id, DestinaionStoreName = store.Name },
                 HttpMethod.Post);
 
-            await _pageService.DisplayAlert("Success!", $"Products Transferd to {store.Name}.", "Ok");
+            await _pageService.DisplayAlert("موفقیت!", $"انتقال محصولات به {store.Name} با موفقیت انجام شد", "باشه");
 
             await _navigationService.PushAsync(new TransferLoggingPage(configuration));
         }

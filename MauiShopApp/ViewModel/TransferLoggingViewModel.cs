@@ -81,7 +81,7 @@ public partial class TransferLoggingViewModel : BaseViewModel
                 stringBuilder.Append($"{transferlog.Key} : {transferlog.Value} {Environment.NewLine}");
             }
 
-            await _pageService.DisplayAlert("Product Transfered Details", stringBuilder.ToString(), "Ok");
+            await _pageService.DisplayAlert("محصولات انتقال داده شده", stringBuilder.ToString(), "باشه");
         }
         catch (Exception e)
         {

@@ -9,16 +9,16 @@
     >
 
     <TabBar>
-        <ShellContent Title="User"
-                     Icon="user"
-                     ContentTemplate="{DataTemplate views:UserPage}" />
-        <ShellContent Title="Home"
+        <ShellContent Title="خانه"
                      Icon="home"
+                     ContentTemplate="{DataTemplate views:UserPage}" />
+        <ShellContent Title="محصولات"
+                     Icon="boxico"
                      ContentTemplate="{DataTemplate local:MainPage}" />
-        <ShellContent Title="Basket"
+        <ShellContent Title="سبد"
                      Icon="basket"
                      ContentTemplate="{DataTemplate views:BasketPage}" />      
-        <ShellContent Title="Logger"
+        <ShellContent Title="گزارشات"
                      Icon="transfer"
                      ContentTemplate="{DataTemplate views:TransferLoggingPage}" />    
     </TabBar>
